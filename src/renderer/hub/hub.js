@@ -157,15 +157,19 @@ ipcRenderer.on('update-note-list', (event, notes) => {
             });
         }
 
-        // 3-Dot Menu Button
-        const menuButton = document.createElement('button');
-        menuButton.className = 'menu-button';
-        menuButton.textContent = '⋯'; // 3-dot character
-        menuButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent the item from opening
-            showMenu(e, item);
-        });
-        li.appendChild(menuButton);
+		// 3-Dot Menu Button
+		const menuButton = document.createElement('button');
+		menuButton.className = 'menu-button';
+		menuButton.textContent = '⋯'; // 3-dot character
+
+		// Log when the button is clicked
+		menuButton.addEventListener('click', (e) => {
+			console.log('Menu button clicked:', e.target); // Log when the button is clicked
+			e.stopPropagation(); // Prevent the item from opening 
+			showMenu(e, item); // Show the 3-dot menu
+		});
+
+		li.appendChild(menuButton);
 
         noteList.appendChild(li);
     });
