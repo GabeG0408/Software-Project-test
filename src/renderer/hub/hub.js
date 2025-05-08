@@ -166,6 +166,7 @@ ipcRenderer.on('update-note-list', (event, notes) => {
 		// Log when the button is clicked
 		menuButton.addEventListener('click', (e) => {
 			console.log('Menu button clicked:', e.target); // Log when the button is clicked
+			e.stopPropagation(); // Prevent the item from opening 
 			showMenu(e, item); // Show the 3-dot menu
 		});
 
@@ -178,6 +179,7 @@ ipcRenderer.on('update-note-list', (event, notes) => {
 
 // Function to show the 3-dot menu
 function showMenu(event, item) {
+	console.log('showMenu triggered');
     // Close any existing menus first
     document.querySelectorAll('.menu-options').forEach(menu => menu.remove());
     
