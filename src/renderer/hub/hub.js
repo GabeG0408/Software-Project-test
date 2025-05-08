@@ -170,6 +170,7 @@ ipcRenderer.on('update-note-list', (event, notes) => {
 		});
 
 		li.appendChild(menuButton);
+		
 
         noteList.appendChild(li);
     });
@@ -203,7 +204,7 @@ function showMenu(event, item) {
     deleteOption.addEventListener('click', () => {
         showConfirmModal('Confirm Deletion', `Are you sure you want to delete "${item.title || item.name}"?`, (confirmed) => {
             if (confirmed) {
-                ipcRenderer.send('delete-item', item.id);
+                ipcRenderer.send('delete-note', item.id);
             }
         });
         menu.remove(); // Close menu after action
