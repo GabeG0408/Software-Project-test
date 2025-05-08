@@ -178,7 +178,10 @@ function showMenu(event, item) {
     
     const menu = document.createElement('div');
     menu.className = 'menu-options three-dot-menu-content'; // Added both classes
-    
+
+    // Add z-index to make sure menu appears on top
+    menu.style.zIndex = '1000'; // Ensuring menu is on top
+
     // Rename option
     const renameOption = document.createElement('div');
     renameOption.textContent = 'Rename';
@@ -186,10 +189,10 @@ function showMenu(event, item) {
         showInputModal(`Rename ${item.type === 'folder' ? 'Folder' : 'Note'}`, (newName) => {
             ipcRenderer.send('rename-item', { id: item.id, newName });
         });
-        menu.remove();
+        menu.remove(); // Close menu after action
     });
     menu.appendChild(renameOption);
-    
+
     // Delete option
     const deleteOption = document.createElement('div');
     deleteOption.textContent = 'Delete';
@@ -199,18 +202,19 @@ function showMenu(event, item) {
                 ipcRenderer.send('delete-item', item.id);
             }
         });
-        menu.remove();
+        menu.remove(); // Close menu after action
     });
     menu.appendChild(deleteOption);
-    
+
     // Position the menu near the button
     const buttonRect = event.target.getBoundingClientRect();
     menu.style.position = 'fixed';
     menu.style.left = `${buttonRect.right - 120}px`; // Adjust to keep menu visible
     menu.style.top = `${buttonRect.bottom + 5}px`;
-    
+
+    // Append menu to the body
     document.body.appendChild(menu);
-    
+
     // Close when clicking outside
     const closeMenu = (e) => {
         if (!menu.contains(e.target) && e.target !== event.target) {
@@ -218,7 +222,6 @@ function showMenu(event, item) {
             document.removeEventListener('click', closeMenu);
         }
     };
-    
     document.addEventListener('click', closeMenu);
 }
 
