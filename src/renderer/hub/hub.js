@@ -166,7 +166,6 @@ ipcRenderer.on('update-note-list', (event, notes) => {
 		// Log when the button is clicked
 		menuButton.addEventListener('click', (e) => {
 			console.log('Menu button clicked:', e.target); // Log when the button is clicked
-			e.stopPropagation(); // Prevent the item from opening 
 			showMenu(e, item); // Show the 3-dot menu
 		});
 
@@ -211,6 +210,18 @@ function showMenu(event, item) {
         menu.remove(); // Close menu after action
     });
     menu.appendChild(deleteOption);
+	
+	// Move to Folder option
+    const moveToOption = document.createElement('div');
+    moveToOption.textContent = 'Move to Folder';
+    moveToOption.addEventListener('click', () => {
+        // Show a modal or dropdown to select a folder
+        showFolderSelectionModal((selectedFolderId) => {
+            ipcRenderer.send('move-item-to-folder', { itemId: item.id, folderId: selectedFolderId });
+        });
+        menu.remove(); // Close menu after action
+    });
+    menu.appendChild(moveToOption);
 
     // Position the menu near the button
     const buttonRect = event.target.getBoundingClientRect();
