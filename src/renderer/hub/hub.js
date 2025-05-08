@@ -164,11 +164,16 @@ ipcRenderer.on('update-note-list', (event, notes) => {
 		menuButton.textContent = '⋯'; // 3-dot character
 
 		// Log when the button is clicked
-		menuButton.addEventListener('click', (e) => {
-			console.log('Menu button clicked:', e.target); // Log when the button is clicked
-			e.stopPropagation(); // Prevent the item from opening 
-			showMenu(e, item); // Show the 3-dot menu
-		});
+		const menuButton = document.querySelector('.menu-button');
+		if (menuButton) {
+			menuButton.addEventListener('click', (e) => {
+				console.log('Menu button clicked:', e.target); // Verify button click
+				e.stopPropagation(); // Prevent any default behavior (optional)
+				showMenu(e, item);  // Show the 3-dot menu
+			});
+		} else {
+			console.log('Menu button not found!');
+		}
 
 		li.appendChild(menuButton);
 		
