@@ -156,6 +156,7 @@ ipcRenderer.on('update-note-list', (event, notes) => {
                 ipcRenderer.send('open-note', item.id); // Send the note ID to open it
             });
         }
+		console.log('Attaching menu button for item:', item);
 
 		// 3-Dot Menu Button
 		const menuButton = document.createElement('button');
